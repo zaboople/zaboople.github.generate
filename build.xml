@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+
+<project name="Tmplz.org" basedir="." default="help">
+
+  <!--******-->
+  <!--HELP  -->
+  <!--******-->
+
+  <target name="help">
+    <echo>
+
+    *******
+    Important note for redeploying the tmplz API:
+      1 Go to tmplz's directory and run the dist target, then copy everything from dist/site
+        to tmplz.org's lib/external-tmplz directory.
+      2 Run the generate-tmplz-docs target and copy dist/generated to tmplz's
+        lib/external-tmplz.org/generated directory.
+      3 Run step 1 a second time, and you're ready to build the site, i.e. tmplz.org's dist target.
+    The above is only necessary when tmplz *changes*. The ant tasks in both projects don't remove
+    what's in the lib/external-etc. directories.
+    *******
+
+    Prep targets:
+      clean:
+        Creates a clean environment ready for a fresh build.
+
+    Intermediate Targets:
+      generate:
+        Generates ./dist/generated/content from ./web/content using the Tmplz content
+        generator application, to create a "static" version of the Tmplz content in the
+        site. This is an incomplete site, however.
+      generate-tmplz-docs
+        Generates the tmplz documentation to put in tmplz's own distribution.
+
+    Distribution Targets:
+      dist:
+        Builds Static site, in dist/generated &amp; dist.generated.zip
+
+    </echo>
+  </target>
+
+  <!--**********-->
+  <!--PROPERTIES-->
+  <!--**********-->
+
+  <!--Properties: environment-->
+  <property environment="env"/>
+  <property file="lib/external-pdfrpt/build.properties"/>
+  <property file="lib/external-tmplz/build.properties"/>
+  <property file="lib/external-klonk/build.properties"/>
+  <!--Properties: directories:-->
+  <property name="lib.dir" value="lib"/>
+  <property name="webapp.name" value="tmplzsite"/>
+  <!--Blank out classpath so that user classpath doesn't interfere: -->
+  <path id="classpath"></path>
+
+  <!--**********-->
+  <!--  CLEAN   -->
+  <!--**********-->
+
+  <target name="clean" description="Clean output directories">
+    <delete dir="dist"/>
+  </target>
+
+
+
+  <target name="init">
+  </target>
+
+
+
+  <!--*************-->
+  <!--GENERATE HTML-->
+  <!--*************-->
+  <!--
+    This does not generate a complete web site; it does only part of that.
+    It is invoked by the "dist" target so that
+    we can construct a generated web site for distribution
+    along with the war file.
+    -->
+  <target name="generate" depends="init">
+    <!--Run the Generator program:-->
+    <mkdir dir="dist/generated/content"/>
+    <java classname="org.tmotte.tmplz.apps.SiteGenerator">
+      <classpath>
+        <pathelement location="lib/external-tmplz/tmplz-${VERSION.TMPLZ}.jar"/>
+        <pathelement location="lib/external-tmplz/tmottecommon-${VERSION.TMPLZ}.jar"/>
+      </classpath>
+      <arg value="-from"/>  <arg value="web/"/>
+
+      <arg value="-to"/>    <arg value="dist/generated/"/>
+
+      <arg value="-relativeContext"/>
+
+      <arg value="-fillin.props"/> <arg value="lib/external-tmplz/build.properties"/>
+      <arg value="-fillin.props"/> <arg value="lib/external-pdfrpt/build.properties"/>
+      <arg value="-fillin.props"/> <arg value="lib/external-klonk/build.properties"/>
+
+      <arg value="-fillin"/>  <arg value="SiteContext"/>  <arg value="http://zaboople.github.io"/>
+
+    </java>
+    <mkdir dir="dist/generated/images"/>
+    <copy todir="dist/generated/images"  preservelastmodified="true">
+      <fileset dir="web/images"/>
+    </copy>
+    <mkdir dir="dist/generated/javadoc"/>
+    <copy todir="dist/generated/javadoc/tmplz"  preservelastmodified="true">
+      <fileset dir="lib/external-tmplz/javadoc"/>
+    </copy>
+    <copy todir="dist/generated/javadoc/pdfrpt"  preservelastmodified="true">
+      <fileset dir="lib/external-pdfrpt/javadoc"/>
+    </copy>
+    <copy todir="dist/generated/javadoc/argmatcher"  preservelastmodified="true">
+      <fileset dir="lib/external-argmatcher/javadoc"/>
+    </copy>
+  </target>
+
+  <target name="generate-tmplz-docs" depends="clean,generate">
+    <delete dir="dist/generated/javadoc/pdfrpt"/>
+    <delete dir="dist/generated/content/pages/pdfrpt"/>
+    <delete dir="dist/generated/content/pages/klonk"/>
+
+    <delete file="dist/generated/content/pages/index.html"/>
+    <delete file="dist/generated/content/pages/tmplz/index.html"/>
+    <copy   file="dist/generated/content/pages/tmplz/indexDist.html"
+          tofile="dist/generated/content/pages/tmplz/index.html"/>
+    <copy   file="web/index-tmplz-redirect.html"
+          tofile="dist/generated/index.html"/>
+  </target>
+
+  <!--************-->
+  <!--DISTRIBUTION-->
+  <!--************-->
+
+  <target name="dist" depends="init,generate">
+    <!--Complete generated static HTML site:-->
+    <!--Note that we handle index.html outside of generate because
+        it's different for tmplz's generated docs.-->
+    <copy file="web/index.html" tofile="dist/generated/index.html"/>
+    <copy todir="dist/generated/downloads"  preservelastmodified="true">
+      <fileset dir="lib/external-tmplz" includes="*.zip"/>
+      <fileset dir="lib/external-pdfrpt" includes="*.zip"/>
+      <fileset dir="lib/external-klonk" includes="*.zip"/>
+      <fileset dir="lib/external-argmatcher" includes="*.zip"/>
+    </copy>
+    <zip destfile="dist/generated.zip">
+      <zipfileset dir="dist/generated"/>
+    </zip>
+  </target>
+
+</project>

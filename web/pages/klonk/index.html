@@ -1,0 +1,44 @@
+[$Include ../../includes/all-klonk.html]
+  [$Fillin Title]Klonk Text Editor[$Fillin]
+  [$Fillin HTMLHeader]
+    <meta name="description" content="Klonk Text Editor" />
+    <meta name="keywords" content="Text Editor, Java"/>
+  [$Fillin]
+  [$Fillin Body]
+    <div id="TmplzIntro">
+
+      <p>
+        Klonk is a general-purpose text editor that implements an unusual variation on the traditional undo-redo algorithm.
+        In most text editors/IDE's/word processors/etc., the user can go back and forth between undos & redos until they make a new change, and
+        then the available redos are destroyed, and information in them is lost. Klonk provides a very typical user interface for undo/redo, but when the user makes a change, the application uses a special algorithm to silently convert the outstanding redos into undos - or, in a sense, "the future becomes the past."
+      </p>
+      <p>
+        Thus Klonk is able to revert a document to any previous state in an efficient and intuitive manner.
+        One can reverse and replay an entire editing session from end to beginning and back, regardless of how
+        undos and redos have been applied. Undo/redo states are only discarded for a file when the user closes that file or exits the application completely. Memory used by the undo/redo algorithm is fairly negligible.
+      </p>
+      <p>
+        Klonk also includes typical features like find & replace with full regex support, auto-indention, etc., and a few
+        more unusual bits and pieces, but its primary purpose is to be a testbed for the undo/redo algorithm. It is also intended
+        to be robust enough for everyday use (much of Klonk was written using Klonk) but it has not been tested extensively on
+        all possible platforms.
+      </p>
+    </div>
+    <h3>System Requirements</h3>
+    <p>
+      Klonk requires <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>, version 1.8 (also known as Java 8) or greater.
+    </p>
+
+    <h3>Download</h3>
+    <p>Current version is <b>[$Slot VERSION.KLONK]</b>.
+    <p><a href="../../downloads/klonk.[$Slot VERSION.KLONK].zip">Download</a> the binary distribution. This includes an executable jar file, an unsigned windows "exe" executable generated with JSmoothGen, and a .bat file as another alternative. Note: Always be careful about downloading executable programs from the internet and use a virus scanner.</p>
+    <p><a href="../../downloads/klonk.[$Slot VERSION.KLONK].src.zip">Download</a> the complete source code from this site, or from <a href="https://github.com/zaboople/klonk">GitHub</a>.</p>
+
+    <h3>Using it</h3>
+    <p><a href="./license/licenseonline.html">Licensing Info</a> (it's free software).</p>
+
+
+  [$Fillin]
+
+[$Include]
+

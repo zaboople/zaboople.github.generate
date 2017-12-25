@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="[$Slot Context]/css/styles.css">
+    <script language="javascript" type="text/javascript" src="[$Slot Context]/js/tools.js"></script>
+    <title>[$Slot Title]</title>
+    <link rel="SHORTCUT ICON" href="[$Slot Context]../images/favicon.ico"/>
+
+    [$Slot HTMLHeader]
+  </head>
+  <body>
+    <div class="SiteHeader">
+      <!--http://www.tmplz.org/content/-->
+      <a href="[$Slot SiteContext]/index.html">zaboople.github.io</a>
+      &nbsp;
+      &nbsp;
+      <a href="https://github.com/zaboople/">github.com/zaboople</a>
+    </div>
+    [$Section SubHeader-Tmplz]
+      <div class="SiteSubHeader Tmplz">
+        <a href="[$Slot Context]pages/tmplz/index.html">Tmplz Template API</a>
+      </div>
+    [$Section]
+    [$Section SubHeader-PDFRpt]
+      <div class="SiteSubHeader PDFRpt">
+        <a href="[$Slot Context]pages/pdfrpt/index.html">PDFRpt Reporting API</a>
+      </div>
+    [$Section]
+    [$Section SubHeader-Klonk]
+      <div class="SiteSubHeader Klonk">
+        <a href="[$Slot Context]pages/klonk/index.html">Klonk Text Editor</a>
+      </div>
+    [$Section]
+    <div style="padding:8px 16px 8px 16px;">
+      [$Slot Body]
+    </div>
+    [$Slot Footer]
+  </body>
+</html>
