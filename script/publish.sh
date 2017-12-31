@@ -21,6 +21,7 @@ echo -n "WARNING: I am about to do a huge cp -r. Okay? "
 read answer
 if [[ $answer == y* ]]; then
   cp -r dist/generated/* ../zaboople.github.io/
+  ant clean
 fi
 
 echo
