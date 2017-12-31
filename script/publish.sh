@@ -4,6 +4,7 @@ cd $(dirname $0)
 echo
 echo "Committing generator changes..."
 gip-add-commit-and-push-force "Publish"
+
 cd ../../zaboople.github.io
 echo
 echo "Current directory: "$(pwd)
