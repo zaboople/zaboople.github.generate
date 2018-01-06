@@ -26,7 +26,7 @@
 
     Intermediate Targets:
       generate:
-        Generates ./dist/generated/content from ./web/content using the Tmplz content
+        Generates ./dist/generated from ./web using the Tmplz content
         generator application, to create a "static" version of the Tmplz content in the
         site. This is an incomplete site, however.
       generate-tmplz-docs
