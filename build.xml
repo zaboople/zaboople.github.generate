@@ -9,17 +9,6 @@
   <target name="help">
     <echo>
 
-    *******
-    Important note for redeploying the tmplz API:
-      1 Go to tmplz's directory and run the dist target, then copy everything from dist/site
-        to tmplz.org's lib/external-tmplz directory.
-      2 Run the generate-tmplz-docs target and copy dist/generated to tmplz's
-        lib/external-tmplz.org/generated directory.
-      3 Run step 1 a second time, and you're ready to build the site, i.e. tmplz.org's dist target.
-    The above is only necessary when tmplz *changes*. The ant tasks in both projects don't remove
-    what's in the lib/external-etc. directories.
-    *******
-
     Prep targets:
       clean:
         Creates a clean environment ready for a fresh build.
