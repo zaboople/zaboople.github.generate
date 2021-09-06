@@ -3,7 +3,7 @@ cd $(dirname $0)/..
 ant dist
 echo
 echo "Committing generator changes..."
-gip-add-commit-and-push-force "Publish"
+gip-add-commit-and-push --yes --master "Publish"
 
 cd ../zaboople.github.io
 echo
