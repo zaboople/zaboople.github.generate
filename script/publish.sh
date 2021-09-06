@@ -26,5 +26,5 @@ fi
 
 echo
 cd ../zaboople.github.io
-gip-add-commit-and-push-force "Publish"
+gip-add-commit-and-push --yes --master "Publish"
 echo "Hopefully published site"
